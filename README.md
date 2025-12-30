@@ -6,8 +6,16 @@ For example, you can read a `.sqlite.zstd`, `.sqlite.gz`, or `.sqlite.br` file w
 
 It requires 2 passes over the file. One to read metadata and b-tree indexes, and a second one to read the actual data.
 Data is emitted to a callback in whatever order it physically appears in the file.
-
 If a file is highly fragmented (not vacuumed), more passes might be performed.
+
+For [example](https://bsky.app/profile/alnkq.bsky.social/post/3mb7nwlhier2g), you can use it to convert a sqlite dump into a more efficient format (Parquet): [Anna's Archive Spotify metadata dump](https://annas-archive.li/torrents/spotify)
+| Format    | Size | Queryable |
+| -------- | -------: | ------- | 
+| `spotify_clean.sqlite3.zst`  | 34 GB     |⛔ No | 
+| `spotify_clean.sqlite3` | 116 GB   | ⚠ OLAP queries slow | 
+| `spotify_clean/*.parquet`    | 17 GB    | ✅ Yes | 
+
+
 
 ## Usage (API)
 
